@@ -1,6 +1,6 @@
-# GRUB boot loader configuration - Universal-ish Arch Installer 12/14/2021
+# GRUB boot loader configuration - Universal-ish Arch Installer 01/08/2022
 
-GRUB_DEFAULT=0
+GRUB_DEFAULT="Advanced options for Arch Linux>Arch Linux, with Linux linux"
 GRUB_TIMEOUT=0
 GRUB_DISTRIBUTOR="Arch"
 GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet nowatchdog nvidia-drm.modeset=1"

@@ -34,7 +34,7 @@ if [ "$trimcheck" == 1 ]; then
 fi
 
 # makepkg Configuration
-curl TEMPURL.COM -o /etc/makepkg.conf  # TODO
+curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/makepkg.conf -o /etc/makepkg.conf
 
 # GRUB Bootloader Installation and Configuration
 pacman -S grub efibootmgr os-prober mtools dosfstools --noconfirm
@@ -47,23 +47,23 @@ fi
 cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
 if [ "$gpu" != 3 ]; then
     if [ "$gpu2" != 3 ]; then
-        curl TEMPURL.COM -o /etc/default/grub  # TODO
+        curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/grub -o /etc/default/grub
     fi
 fi
 if [ "$gpu" == 3 ]; then
-    curl TEMPURL.COM -o /etc/default/grub  # TODO
+    curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/grub-nvidia -o /etc/default/grub
     if [ "$formfactor" != 3 ]; then
-        curl TEMPURL.COM -o /etc/pacman.d/hooks/nvidia.hook  # TODO
+        curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/nvidia-hook -o /etc/pacman.d/hooks/nvidia.hook
     else
-        curl TEMPURL.COM -o /etc/pacman.d/hooks/nvidia.hook  # TODO
+        curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/nvidia-hook-lts -o /etc/pacman.d/hooks/nvidia.hook
     fi
 fi
 if [ "$gpu2" == 3 ]; then
-    curl TEMPURL.COM -o /etc/default/grub  # TODO
+    curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/grub-nvidia -o /etc/default/grub
     if [ "$formfactor" != 3 ]; then
-        curl TEMPURL.COM -o /etc/pacman.d/hooks/nvidia.hook  # TODO
+        curl curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/nvidia-hook -o /etc/pacman.d/hooks/nvidia.hook
     else
-        curl TEMPURL.COM -o /etc/pacman.d/hooks/nvidia.hook  # TODO
+        curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/nvidia-hook-lts -o /etc/pacman.d/hooks/nvidia.hook
     fi
 fi
 grub-mkconfig -o /boot/grub/grub.cfg
@@ -93,9 +93,9 @@ chown -R "$username" /home/"$username"/.cuaninstaller
 su -c "git clone https://aur.archlinux.org/paru-bin.git ~/.cuaninstaller/aurpackages/paru-bin" "$username"
 su -c "cd ~/.cuaninstaller/aurpackages/paru-bin && makepkg -si --noconfirm" "$username"
 cd ..
-curl TEMPURL.COM -o /etc/paru.conf  # TODO
+curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/paru.conf -o /etc/paru.conf
 if [ "$formfactor" -lt 4 ]; then
-    curl TEMPURL.COM -o /etc/pacman.conf  # TODO
+    curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/pacman.conf -o /etc/pacman.conf
     pacman -Sy
 fi
 
@@ -103,7 +103,7 @@ fi
 # Zephyrus G14
 mkdir /home/"$username"/.cuaninstaller/scripts
 if [ "$formfactor" == 4 ]; then
-    curl TEMPURL.COM -o /etc/pacman.conf  # TODO
+    curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/pacman.conf-g14 -o /etc/pacman.conf
     pacman -Sy
     su -c "git clone https://aur.archlinux.org/asusctl-git.git ~/.cuaninstaller/aurpackages/asusctl-git" "$username"
     su -c "cd ~/.cuaninstaller/aurpackages/asusctl-git && makepkg -si --noconfirm" "$username"
@@ -318,7 +318,7 @@ fi
 mkdir -p /home/"$username"/.gnupg
 echo 'pinentry-program /usr/bin/pinentry-tty' > /home/"$username"/.gnupg/gpg-agent.conf  # forces gpg prompts to use terminal input
 pacman -S neofetch htop cpupower openvpn openresolv --needed --noconfirm
-curl https://raw.githubusercontent.com/alfredopalhares/openvpn-update-resolv-conf/master/update-resolv-conf.sh -o /etc/openvpn/update-resolv-conf  # TODO
+curl https://raw.githubusercontent.com/alfredopalhares/openvpn-update-resolv-conf/master/update-resolv-conf.sh -o /etc/openvpn/update-resolv-conf
 chmod +x /etc/openvpn/update-resolv-conf
 
 # Saving Copy of Current Install Script for Future Reference
@@ -329,7 +329,7 @@ cp /etc/paru.conf /home/"$username"/.cuaninstaller/installerbackup/paru.conf
 cp /etc/default/grub /home/"$username"/.cuaninstaller/installerbackup/grub
 cp /etc/makepkg.conf /home/"$username"/.cuaninstaller/installerbackup/makepkg.conf
 cp /secondInstall.sh /home/"$username"/.cuaninstaller/installerbackup/secondInstall.sh
-curl TEMPURL.COM -o /home/"$username"/.cuaninstaller/installerbackup/firstInstall.sh  # TODO
+curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/firstInstall.sh -o /home/"$username"/.cuaninstaller/installerbackup/firstInstall.sh
 
 # Finishing Up + Cleaning
 hostnamectl hostname archlinux

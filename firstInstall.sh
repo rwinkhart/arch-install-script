@@ -1,7 +1,7 @@
 #!/bin/bash
 echo ----------------------------------------------------------------------------------------------
 echo Randall\'s Universal-ish Interactive Arch+Plasma/Phosh Installer
-echo Version: 2022.01.07-11
+echo Version: 2022.01.08-2
 echo Last Tested x86_64 ISO: January 01, 2022
 echo Last Tested PinePhone Image: PENDING
 echo ----------------------------------------------------------------------------------------------
@@ -197,11 +197,6 @@ echo "$rootpassword" > /mnt/tempfiles/rootpassword
 echo "$timezone" > /mnt/tempfiles/timezone
 
 # Download and Initiate Part 2
-if [ "$formfactor" -lt 5 ]; then
-curl TEMPURL.COM -o /mnt/secondInstall.sh  # TODO
-fi
-if [ "$formfactor" == 5 ]; then
-curl TEMPURL.COM -o /mnt/secondInstall.sh  # TODO
-fi
+curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/universal/secondInstall.sh -o /mnt/secondInstall.sh
 chmod +x /mnt/secondInstall.sh
 arch-chroot /mnt ./secondInstall.sh
