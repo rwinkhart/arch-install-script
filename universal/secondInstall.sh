@@ -105,7 +105,8 @@ mkdir /home/"$username"/.cuaninstaller/scripts
 if [ "$formfactor" == 4 ]; then
     curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/pacman.conf-g14 -o /etc/pacman.conf
     pacman -Sy supergfxctl asusctl --noconfirm
-    systemctl enable --now asusd supergfxd
+    systemctl enable --now supergfxd
+    systemctl start asusd
     su -c "asusctl -c 80" "$username"
     su -c "systemctl --user enable --now asus-notify.service" "$username"
     # Graphics Switching Scripts
