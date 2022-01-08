@@ -1,10 +1,11 @@
 # universal-arch-install-script
-A universal-sh Arch Linux installation script that works on x86_64 desktops and is slowly expanding into aarch64 support.
+A universal-ish Arch Linux installation script that works on x86_64 devices and is slowly expanding into aarch64 support.
 
-The script includes the following modifications from a typical Arch Linux install:
+The script includes the following modifications from a typical Arch Linux installation:
 
 - opendoas is subbed in for sudo
 - pipewire+pipewire-pulse is subbed in for pulseaudio
+- paru is subbed in for yay
 - many custom configurations and tweaks are made for power management
 - makepkg is configured with better compression algorithms and is forced to use all cores
 
@@ -22,7 +23,7 @@ After running the script, it will ask you some questions about your system confi
 # Supported Devices
 Generic:
 
-- Most x86_64 Desktops and Laptops
+- Most x86_64 desktops and laptops
 
 Special Configuration:
 
