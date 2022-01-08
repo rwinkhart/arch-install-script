@@ -1,7 +1,7 @@
 #!/bin/bash
 echo ----------------------------------------------------------------------------------------------
 echo Randall\'s Universal-ish Interactive Arch+Plasma/Phosh Installer
-echo Version: 2022.01.08-2
+echo Version: 2022.01.08-3
 echo Last Tested x86_64 ISO: January 01, 2022
 echo Last Tested PinePhone Image: PENDING
 echo ----------------------------------------------------------------------------------------------

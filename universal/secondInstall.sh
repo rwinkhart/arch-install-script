@@ -104,11 +104,7 @@ fi
 mkdir /home/"$username"/.cuaninstaller/scripts
 if [ "$formfactor" == 4 ]; then
     curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/pacman.conf-g14 -o /etc/pacman.conf
-    pacman -Sy
-    su -c "git clone https://aur.archlinux.org/asusctl-git.git ~/.cuaninstaller/aurpackages/asusctl-git" "$username"
-    su -c "cd ~/.cuaninstaller/aurpackages/asusctl-git && makepkg -si --noconfirm" "$username"
-    cd /
-    pacman -Sy supergfxctl --noconfirm
+    pacman -Sy supergfxctl asusctl --noconfirm
     systemctl enable --now asusd supergfxd
     su -c "asusctl -c 80" "$username"
     su -c "systemctl --user enable --now asus-notify.service" "$username"
