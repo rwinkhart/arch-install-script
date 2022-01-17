@@ -114,7 +114,7 @@ if [ "$formfactor" == 4 ]; then
     supergfxctl -m integrated
     pkill -KILL -u '"$username"'' > /home/"$username"/.cuaninstaller/scripts/graphics-integrated.sh
     echo '#!/bin/bash
-    supergfxctl -m nvidia
+    supergfxctl -m dedicated
     pkill -KILL -u '"$username"'' > /home/"$username"/.cuaninstaller/scripts/graphics-dedicated.sh
     chmod +x /home/"$username"/.cuaninstaller/scripts/graphics-integrated.sh /home/"$username"/.cuaninstaller/scripts/graphics-dedicated.sh
     su -c "supergfxctl -m integrated" "$username"
