@@ -1,7 +1,7 @@
 #!/bin/bash
 echo ----------------------------------------------------------------------------------------------
 echo Randall\'s Universal-ish Interactive Arch+Plasma/SXMO Installer
-echo Version: 2022.02.02-1
+echo Version: 2022.02.02-2
 echo Last Tested x86_64 ISO: January 01, 2022
 echo Last Tested PinePhone Image: PENDING
 echo ----------------------------------------------------------------------------------------------

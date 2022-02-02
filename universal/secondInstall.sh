@@ -36,11 +36,15 @@ fi
 # makepkg Configuration
 curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/makepkg.conf -o /etc/makepkg.conf
 
-# GRUB Bootloader Installation and Configuration
+# Bootloader Installation and Configuration
 if [ "$formfactor" == 5 ]; then
-    wget https://github.com/rwinkhart/universal-arch-install-script/raw/main/config-files/aarch64/pinephone/u-boot/pre-built/u-boot-sunxi-with-spl.bin
-    dd if=u-boot-sunxi-with-spl.bin of=/dev/mmcblk2 bs=1024 seek=8
+    # PinePhone U-boot
+    #wget https://github.com/rwinkhart/universal-arch-install-script/raw/main/config-files/aarch64/pinephone/u-boot/pre-built/u-boot-sunxi-with-spl.bin
+    #dd if=u-boot-sunxi-with-spl.bin of=/dev/mmcblk2 bs=1024 seek=8
+    curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/aarch64/pinephone/pacman.conf -o /etc/pacman.conf
+    pacman -Sy uboot-pinephone
 else
+    # GRUB
     pacman -S grub efibootmgr os-prober mtools dosfstools --noconfirm
     if [ "$boot" == 2 ]; then
         grub-install --target=x86_64-efi --bootloader-id=GRUB --recheck
@@ -287,26 +291,24 @@ if [ "$formfactor" == 4 ]; then
 fi
 
 # Setting Home Directory Permissions
-if [ "$formfactor" -lt 3 ]; then
-    chmod -R 755 /home
-fi
-if [ "$formfactor" == 4 ]; then
-    chmod -R 755 /home
-fi
 if [ "$formfactor" == 3 ]; then
     chmod -R 700 /home
+else
+    chmod -R 755 /home
 fi
 
-# Installing KDE Plasma 5 and Addons + Utilities
-if [ "$formfactor" -lt 3 ]; then
+# Installing Desktop Environment and Addons + Utilities
+if [ "$formfactor" -lt 3 ] || [ "$formfactor" == 4 ]; then
     pacman -S pipewire pipewire-pulse plasma-desktop sddm sddm-kcm kscreen kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager pcmanfm-qt yakuake ark kate bluedevil bluez --needed --noconfirm
     systemctl enable sddm
 fi
 if [ "$formfactor" == 4 ]; then
-    pacman -S pipewire pipewire-pulse plasma-desktop sddm sddm-kcm kscreen kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager pcmanfm-qt yakuake ark kate bluedevil bluez --needed --noconfirm
     systemctl enable bluetooth
-    systemctl enable sddm
 fi
+if [ "$formfactor" == 5 ]; then
+    pacman -S danctnix-sxmo-ui-meta firefox mobile-config-firefox
+fi
+
 
 # Installing and Configuring Basic Software Packages
 if [ "$formfactor" == 3 ]; then
