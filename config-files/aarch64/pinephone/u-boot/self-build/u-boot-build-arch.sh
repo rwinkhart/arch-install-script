@@ -10,7 +10,7 @@ read -n 1 -r -p "Install build dependencies? (Arch Linux only) (y/N)" depends
 if [ "$depends" == "y" ] || [ "$distro" == "Y" ]; then
     echo
     sudo rm -rf /opt/or1k-linux-musl-cross
-    sudo pacman -Sy dtc swig bc aarch64-linux-gnu-gcc --needed --noconfirm
+    sudo pacman -Sy dtc swig bc aarch64-linux-gnu-gcc wget --needed --noconfirm
     wget https://musl.cc/or1k-linux-musl-cross.tgz
     tar zxvf or1k-linux-musl-cross.tgz
     sudo mv or1k-linux-musl-cross /opt/
