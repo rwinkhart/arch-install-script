@@ -37,36 +37,41 @@ fi
 curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/makepkg.conf -o /etc/makepkg.conf
 
 # GRUB Bootloader Installation and Configuration
-pacman -S grub efibootmgr os-prober mtools dosfstools --noconfirm
-if [ "$boot" == 2 ]; then
-    grub-install --target=x86_64-efi --bootloader-id=GRUB --recheck
-fi
-if [ "$boot" == 1 ]; then
-    grub-install --target=i386-pc "$disk"
-fi
-cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
-if [ "$gpu" != 3 ]; then
-    if [ "$gpu2" != 3 ]; then
-        curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/grub -o /etc/default/grub
+if [ "$formfactor" == 5 ]; then
+    wget https://github.com/rwinkhart/universal-arch-install-script/raw/main/config-files/aarch64/pinephone/u-boot/pre-built/u-boot-sunxi-with-spl.bin
+    dd if=u-boot-sunxi-with-spl.bin of=/dev/mmcblk2 bs=1024 seek=8
+else
+    pacman -S grub efibootmgr os-prober mtools dosfstools --noconfirm
+    if [ "$boot" == 2 ]; then
+        grub-install --target=x86_64-efi --bootloader-id=GRUB --recheck
     fi
-fi
-if [ "$gpu" == 3 ]; then
-    curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/grub-nvidia -o /etc/default/grub
-    if [ "$formfactor" != 3 ]; then
-        curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/nvidia-hook -o /etc/pacman.d/hooks/nvidia.hook
-    else
-        curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/nvidia-hook-lts -o /etc/pacman.d/hooks/nvidia.hook
+    if [ "$boot" == 1 ]; then
+        grub-install --target=i386-pc "$disk"
     fi
-fi
-if [ "$gpu2" == 3 ]; then
-    curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/grub-nvidia -o /etc/default/grub
-    if [ "$formfactor" != 3 ]; then
-        curl curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/nvidia-hook -o /etc/pacman.d/hooks/nvidia.hook
-    else
-        curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/nvidia-hook-lts -o /etc/pacman.d/hooks/nvidia.hook
+    cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
+    if [ "$gpu" != 3 ]; then
+        if [ "$gpu2" != 3 ]; then
+            curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/grub -o /etc/default/grub
+        fi
     fi
+    if [ "$gpu" == 3 ]; then
+        curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/grub-nvidia -o /etc/default/grub
+        if [ "$formfactor" != 3 ]; then
+            curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/nvidia-hook -o /etc/pacman.d/hooks/nvidia.hook
+        else
+            curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/nvidia-hook-lts -o /etc/pacman.d/hooks/nvidia.hook
+        fi
+    fi
+    if [ "$gpu2" == 3 ]; then
+        curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/grub-nvidia -o /etc/default/grub
+        if [ "$formfactor" != 3 ]; then
+            curl curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/nvidia-hook -o /etc/pacman.d/hooks/nvidia.hook
+        else
+            curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/nvidia-hook-lts -o /etc/pacman.d/hooks/nvidia.hook
+        fi
+    fi
+    grub-mkconfig -o /boot/grub/grub.cfg
 fi
-grub-mkconfig -o /boot/grub/grub.cfg
 
 # Account Setup
 groupadd classmod

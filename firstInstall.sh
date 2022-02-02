@@ -176,7 +176,7 @@ if [ "$formfactor" == 4 ]; then
 pacstrap /mnt base $base_devel pacman-contrib linux-firmware linux linux-headers git networkmanager dialog nano
 fi
 if [ "$formfactor" == 5 ]; then
-pacstrap /mnt base $base_devel pacman-contrib linux-firmware linux-megi linux-megi-headers git networkmanager dialog nano
+pacstrap /mnt base $base_devel pacman-contrib linux-firmware linux-megi linux-megi-headers git networkmanager dialog nano wget
 fi
 if [ "$formfactor" == 3 ]; then
 pacstrap /mnt base $base_devel pacman-contrib linux-firmware linux-lts linux-lts-headers git networkmanager dialog nano
