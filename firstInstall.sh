@@ -1,7 +1,7 @@
 #!/bin/bash
 echo ----------------------------------------------------------------------------------------------
-echo Randall\'s Universal-ish Interactive Arch+Plasma/Phosh Installer
-echo Version: 2022.01.17-1
+echo Randall\'s Universal-ish Interactive Arch+Plasma/SXMO Installer
+echo Version: 2022.02.02-1
 echo Last Tested x86_64 ISO: January 01, 2022
 echo Last Tested PinePhone Image: PENDING
 echo ----------------------------------------------------------------------------------------------
@@ -16,7 +16,7 @@ read -n 1 -s -r -p 'Press any key to continue'
 echo -e '\n\nWhat type of device is this installation intended for?\nPlease input the number only.\n'
 echo -e '1. Laptop \(plasma\)\n2. Desktop \(plasma\)\n3. Server \(headless\)\n'
 echo Special Devices:
-echo -e '\n4. ASUS ROG Zephyrus G14 - 2020/2021 \(2022 not supported\) \(plasma\)\n5. Pine64 PinePhone (non-pro) (phosh) - CURRENTLY NOT FUNCTIONAL, WIP\n'
+echo -e '\n4. ASUS ROG Zephyrus G14 2020/2021, G15 2021 \(plasma\)\n5. Pine64 PinePhone (non-pro) (SXMO) - CURRENTLY NOT FUNCTIONAL, WIP\n'
 read -n 1 -r -p "Formfactor: " formfactor
 
 ls /sys/firmware/efi/efivars
