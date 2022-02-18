@@ -1,5 +1,5 @@
 # Overview
-An Arch Linux installtion script that can be used to install and configure Arch Linux with my preferred setup.
+An Arch Linux installation script that can be used to install and configure Arch Linux with my preferred setup.
 
 Some major/noteworthy differences from common configurations:
 
@@ -23,7 +23,7 @@ After running the script, it will ask you some questions about your system confi
 # Supported Devices
 Generic:
 
-- Most x86_64 desktops and laptops
+- Most x86_64 desktops, laptops, and servers
 
 Special Configuration:
 
