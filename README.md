@@ -1,3 +1,4 @@
+# Overview
 An Arch Linux installtion script that can be used to install and configure Arch Linux with my preferred setup.
 
 Some major/noteworthy differences from common configurations:
