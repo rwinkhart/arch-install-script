@@ -1,7 +1,7 @@
 #!/bin/bash
 echo ----------------------------------------------------------------------------------------------
 echo Randall\'s Universal-ish Interactive Arch+Plasma Installer
-echo Last Updated February 18, 2022
+echo Last Updated March 06, 2022
 echo Last Tested x86_64 ISO: January 01, 2022
 echo Last Tested PinePhone Image: PENDING
 echo ----------------------------------------------------------------------------------------------
@@ -126,7 +126,7 @@ if [ "$boot" == 2 ]; then
     mkfs.fat -F32 "$disk"'1'
     mkswap "$disk"'2'
     swapon "$disk"'2'
-    mkfs.ext4 "$disk"'3'
+    mkfs.ext4 -O fast_commit "$disk"'3'
 
     # Mounting Storage and EFI Partitions
     mount "$disk"'3' /mnt
