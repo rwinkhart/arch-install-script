@@ -143,7 +143,7 @@ echo '#!/bin/bash
 cpupower frequency-set -g schedutil
 # announce gov settings
 cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor' > /home/"$username"/.cuaninstaller/scripts/schedutil.sh
-chmod +x /home/"$username"/.cuaninstaller/scripts/performance.sh /home/"$username"/.cuaninstaller/scripts/powersave.sh /home/"$username"/.cuaninstaller/scripts/ondemand.sh /home/"$username"/.cuaninstaller/scripts/schedutil.sh
+chmod +x /home/"$username"/.cuaninstaller/scripts/performance.sh /home/"$username"/.cuaninstaller/scripts/powersave.sh /home/"$username"/.cuaninstaller/scripts/schedutil.sh
 
 # kwin autostart rules
 if [ "$formfactor" -lt 3 ]; then
