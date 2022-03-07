@@ -69,9 +69,13 @@ if [ "$formfactor" -lt "4" ]; then
     read -r -p "Disk: " disk
 fi
 
+echo -e '\n'&&fdisk -l&&echo -e '\nHow much space should be allocated for SWAP?'
+echo -e 'Enter in terms of GB, e.g. "2" or "6" (a value of "0" will disable SWAP)'
+read -r -p "SWAP (default 4): " swap
+
 echo -e '\n'&&fdisk -l&&echo -e '\nDo you want to do a clean install on the OS disk (deletes all pre-existing partitions on OS disk)?'
-    read -n 1 -r -p "(y/N) " wipe
-    wipe=$(echo "$wipe" | tr '[:upper:]' '[:lower:]')
+read -n 1 -r -p "(y/N) " wipe
+wipe=$(echo "$wipe" | tr '[:upper:]' '[:lower:]')
 
 # Config for G14
 if [ "$formfactor" == "4" ]; then
@@ -116,13 +120,6 @@ if [ "$boot" == 2 ]; then
         t
         1
         n
-        2
-
-        +2G
-        t
-        2
-        19
-        n
         3
 
 
@@ -140,13 +137,6 @@ if [ "$boot" == 2 ]; then
         n
         
 
-        +2G
-        t
-        
-        19
-        n
-        
-
 
         w
         " | fdisk "$disk0"
@@ -154,12 +144,10 @@ if [ "$boot" == 2 ]; then
 
     # Disk Formatting
     mkfs.fat -F32 "$disk""$((1 + "$partitions"))"
-    mkswap "$disk""$((2 + "$partitions"))"
-    swapon "$disk""$((2 + "$partitions"))"
-    mkfs.ext4 -O fast_commit "$disk""$((3 + "$partitions"))"
+    mkfs.ext4 -O fast_commit "$disk""$((2 + "$partitions"))"
 
     # Mounting Storage and EFI Partitions
-    mount "$disk""$((3 + "$partitions"))" /mnt
+    mount "$disk""$((2 + "$partitions"))" /mnt
     mkdir /mnt/{boot,etc}
     mkdir /mnt/boot/EFI
     mount "$disk""$((1 + "$partitions"))" /mnt/boot/EFI
@@ -170,13 +158,6 @@ if [ "$boot" == 1 ]; then
     if [ "$wipe" == y ]; then
         partitions=0
         echo "o
-        n
-        p
-        1
-
-        +2G
-        t
-        82
         n
         p
         2
@@ -190,27 +171,25 @@ if [ "$boot" == 1 ]; then
         p
         
 
-        +2G
-        t
-        
-        82
-        n
-        p
-        
-
 
         w
         " | fdisk "$disk0"
     fi
     
     # Disk Formatting
-    mkswap "$disk""$((1 + "$partitions"))"
-    swapon "$disk""$((1 + "$partitions"))"
-    mkfs.ext4 -O fast_commit "$disk""$((2 + "$partitions"))"
+    mkfs.ext4 -O fast_commit "$disk""$((1 + "$partitions"))"
 
     # Mounting Storage (no EFI partition, using DOS label)
-    mount "$disk""$((2 + "$partitions"))" /mnt
+    mount "$disk""$((1 + "$partitions"))" /mnt
     mkdir /mnt/etc
+fi
+
+# Create and mount SWAP file
+if [ "$swap" != 0 ]; then
+    dd if=/dev/zero of=/mnt/swapfile bs=1M count="$swap"'G' status=progress
+    chmod 600 /mnt/swapfile
+    mkswap /swapfile
+    swapon /swapfile
 fi
 
 # Generating fstab
