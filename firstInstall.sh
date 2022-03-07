@@ -2,6 +2,7 @@
 echo ----------------------------------------------------------------------------------------------
 echo Randall\'s Universal-ish Interactive Arch+Plasma Installer
 echo Last Updated March 06, 2022
+echo Last Tested Date: January 28, 2022
 echo Last Tested x86_64 ISO: January 01, 2022
 echo Last Tested PinePhone Image: PENDING
 echo ----------------------------------------------------------------------------------------------
@@ -68,6 +69,10 @@ if [ "$formfactor" -lt "4" ]; then
     read -r -p "Disk: " disk
 fi
 
+echo -e '\n'&&fdisk -l&&echo -e '\nDo you want to do a clean install on the OS disk (deletes all pre-existing partitions on OS disk)?'
+    read -n 1 -r -p "(y/N) " wipe
+    wipe=$(echo "$wipe" | tr '[:upper:]' '[:lower:]')
+
 # Config for G14
 if [ "$formfactor" == "4" ]; then
     disk=/dev/nvme0n1;cpu=1;gpu=1;gpu2=3
@@ -101,71 +106,114 @@ fi
 
 # GPT/UEFI Partitioning
 if [ "$boot" == 2 ]; then
-    echo "g
-    n
-    1
+    if [ "$wipe" == y ]; then
+        partitions=0
+        echo "g
+        n
+        1
 
-    +256M
-    t
-    1
-    n
-    2
+        +256M
+        t
+        1
+        n
+        2
 
-    +2G
-    t
-    2
-    19
-    n
-    3
+        +2G
+        t
+        2
+        19
+        n
+        3
 
 
-    w
-    " | fdisk "$disk0"
+        w
+        " | fdisk "$disk0"
+    else
+        partitions=$(lsblk "$disk0" -o NAME | grep -o '.$' | tail -1)
+        echo "n
+        
+
+        +256M
+        t
+        1
+        n
+        
+
+        +2G
+        t
+        
+        19
+        n
+        
+
+
+        w
+        " | fdisk "$disk0"
+    fi
 
     # Disk Formatting
-    mkfs.fat -F32 "$disk"'1'
-    mkswap "$disk"'2'
-    swapon "$disk"'2'
-    mkfs.ext4 -O fast_commit "$disk"'3'
+    mkfs.fat -F32 "$disk""$((1 + "$partitions"))"
+    mkswap "$disk""$((2 + "$partitions"))"
+    swapon "$disk""$((2 + "$partitions"))"
+    mkfs.ext4 -O fast_commit "$disk""$((3 + "$partitions"))"
 
     # Mounting Storage and EFI Partitions
-    mount "$disk"'3' /mnt
+    mount "$disk""$((3 + "$partitions"))" /mnt
     mkdir /mnt/{boot,etc}
     mkdir /mnt/boot/EFI
-    mount "$disk"'1' /mnt/boot/EFI
+    mount "$disk""$((1 + "$partitions"))" /mnt/boot/EFI
 fi
 
 # MBR/BIOS Partitioning
 if [ "$boot" == 1 ]; then
-    echo "o
-    n
-    p
-    1
+    if [ "$wipe" == y ]; then
+        partitions=0
+        echo "o
+        n
+        p
+        1
 
-    +2G
-    t
-    82
-    n
-    p
-    2
+        +2G
+        t
+        82
+        n
+        p
+        2
 
 
-    w
-    " | fdisk "$disk0"
+        w
+        " | fdisk "$disk0"
+    else
+        partitions=$(lsblk "$disk0" -o NAME | grep -o '.$' | tail -1)
+        echo "n
+        p
+        
+
+        +2G
+        t
+        
+        82
+        n
+        p
+        
+
+
+        w
+        " | fdisk "$disk0"
+    fi
     
     # Disk Formatting
-    mkswap "$disk"'1'
-    swapon "$disk"'1'
-    mkfs.ext4 "$disk"'2'
+    mkswap "$disk""$((1 + "$partitions"))"
+    swapon "$disk""$((1 + "$partitions"))"
+    mkfs.ext4 -O fast_commit "$disk""$((2 + "$partitions"))"
 
     # Mounting Storage (no EFI partition, using DOS label)
-    mount "$disk"'2' /mnt
+    mount "$disk""$((2 + "$partitions"))" /mnt
     mkdir /mnt/etc
 fi
 
 # Generating fstab
 genfstab -U /mnt >> /mnt/etc/fstab
-
 
 # Installing Base Packages (opendoas is subbed for sudo due to preference)
 base_devel='autoconf automake binutils bison fakeroot file findutils flex gawk gcc gettext grep groff pigz pbzip2 libtool m4 make pacman patch pkgconf sed opendoas texinfo which'
