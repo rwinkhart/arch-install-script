@@ -46,10 +46,10 @@ if [ "$formfactor" == 5 ]; then
 else
     # GRUB
     pacman -S grub efibootmgr os-prober mtools dosfstools --noconfirm
-    if [ "$boot" == 2 ]; then
+    if [ "$boot" == 1 ]; then
         grub-install --target=x86_64-efi --bootloader-id=GRUB --recheck
     fi
-    if [ "$boot" == 1 ]; then
+    if [ "$boot" == 2 ]; then
         grub-install --target=i386-pc "$disk"
     fi
     cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo

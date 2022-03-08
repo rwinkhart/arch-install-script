@@ -105,13 +105,13 @@ fi
 
 # Determine if running as UEFI or BIOS
 if [ -d "/sys/firmware/efi" ]; then
-    boot=2
-else
     boot=1
+else
+    boot=2
 fi
 
-# GPT/UEFI Partitioning
-if [ "$boot" == 2 ]; then
+if [ "$boot" == 1 ]; then
+    # GPT/UEFI Partitioning
     if [ "$wipe" == y ]; then
         partitions=0
         echo "g
@@ -130,14 +130,14 @@ if [ "$boot" == 2 ]; then
     else
         partitions=$(lsblk "$disk0" -o NAME | grep -o '.$' | tail -1)
         echo "n
-        
+
 
         +256M
         t
 
         1
         n
-        
+
 
 
         w
@@ -153,10 +153,8 @@ if [ "$boot" == 2 ]; then
     mkdir /mnt/{boot,etc}
     mkdir /mnt/boot/EFI
     mount "$disk""$((1 + "$partitions"))" /mnt/boot/EFI
-fi
-
-# MBR/BIOS Partitioning
-if [ "$boot" == 1 ]; then
+else
+    # MBR/BIOS Partitioning
     if [ "$wipe" == y ]; then
         partitions=0
         echo "o
@@ -171,13 +169,13 @@ if [ "$boot" == 1 ]; then
         partitions=$(lsblk "$disk0" -o NAME | grep -o '.$' | tail -1)
         echo "n
         p
-        
+
 
 
         w
         " | fdisk "$disk0"
     fi
-    
+
     # Disk Formatting
     mkfs.ext4 -O fast_commit "$disk""$((1 + "$partitions"))"
 
