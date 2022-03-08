@@ -1,7 +1,7 @@
 #!/bin/bash
 echo ----------------------------------------------------------------------------------------------
 echo Randall\'s Universal-ish Interactive Arch+Plasma Installer
-echo Last Updated March 07, 2022
+echo Last Updated March 08, 2022
 echo Last Tested Date: March 07, 2022
 echo Last Tested x86_64 ISO: March 01, 2022
 echo Last Tested PinePhone Image: PENDING
@@ -19,11 +19,6 @@ echo -e '1. Laptop \(plasma\)\n2. Desktop \(plasma\)\n3. Server \(headless\)\n'
 echo Special Devices:
 echo -e '\n4. ASUS ROG Zephyrus G14 2020/2021, G15 2021 \(plasma\)\n5. Pine64 PinePhone (non-pro) (phosh) - CURRENTLY NOT FUNCTIONAL, WIP\n'
 read -n 1 -r -p "Formfactor: " formfactor
-
-ls /sys/firmware/efi/efivars
-echo -e '\nIs the system booted as BIOS or UEFI?\nIf the boot device is not detected after installation, it is likely your system requires the enabling of BIOS/Legacy boot mode\nPlease input the number only.\n'
-echo -e '1. BIOS/Legacy // Choose this if the command above resulted in an error\n2. UEFI // Choose this if the command above resulted in a very long output\n'
-read -n 1 -r -p "Boot Type: " boot
 
 echo -e '\n\nWhat would you like your username to be?\n'
 read -r -p "Username: " username
@@ -106,6 +101,13 @@ if [[ "$disk" == /dev/nvme0n* ]]; then
 fi
 if [[ "$disk" == /dev/mmcblk* ]]; then
     disk="$disk"'p'
+fi
+
+# Determine if running as UEFI or BIOS
+if [ -d "/sys/firmware/efi" ]; then
+    boot=2
+else
+    boot=1
 fi
 
 # GPT/UEFI Partitioning
