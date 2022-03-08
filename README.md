@@ -4,8 +4,9 @@ An Arch Linux installation script that can be used to install and configure Arch
 Some major/noteworthy differences from common configurations:
 
 - opendoas is used in place of sudo
-- pipewire is used in place of pulseaudio
 - an AUR helper (paru) is included
+- pipewire is used in place of pulseaudio
+- EXT4 fast_commit mode is enabled by default
 - many custom configurations and tweaks are made for power management
 - makepkg is configured with better compression algorithms than the defaults and is forced to use all cores
 
@@ -29,6 +30,3 @@ Special Configuration:
 
 - ASUS Zephyrus G14 (2020-2021), G15 (2021)
 - Pine64 PinePhone (non-pro) (support WIP, not yet functional)
-
-# Known Issues
-Currently, this script only supports the use of the full disk (meaning it wipes the drive you are installing to). This will soon be corrected.
