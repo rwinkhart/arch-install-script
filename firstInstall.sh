@@ -122,7 +122,7 @@ if [ "$boot" == 1 ]; then
         t
         1
         n
-        3
+
 
 
         w
@@ -160,7 +160,7 @@ else
         echo "o
         n
         p
-        2
+
 
 
         w
