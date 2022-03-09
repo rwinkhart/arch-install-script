@@ -64,11 +64,11 @@ if [ "$formfactor" -lt "4" ]; then
     read -r -p "Disk: " disk
 fi
 
-echo -e '\n'&&fdisk -l&&echo -e '\nHow much space should be allocated for SWAP?'
+echo -e '\nHow much space should be allocated for SWAP?'
 echo -e 'Enter in terms of GB, e.g. "2" or "4" (a value of "0" will disable SWAP)'
 read -r -p "SWAP (recommended: 4): " swap
 
-echo -e '\n'&&fdisk -l&&echo -e '\nDo you want to do a clean install on the OS disk (deletes all pre-existing partitions on OS disk)?'
+echo -e '\nDo you want to do a clean install on the OS disk (deletes all pre-existing partitions on OS disk)?'
 read -n 1 -r -p "(y/N) " wipe
 wipe=$(echo "$wipe" | tr '[:upper:]' '[:lower:]')
 
