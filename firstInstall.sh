@@ -1,8 +1,8 @@
 #!/bin/bash
 echo ----------------------------------------------------------------------------------------------
 echo Randall\'s Universal-ish Interactive Arch+Plasma Installer
-echo Last Updated March 08, 2022
-echo Last Tested Date: March 07, 2022
+echo Last Updated March 09, 2022
+echo Last Tested Date: March 09, 2022
 echo Last Tested x86_64 ISO: March 01, 2022
 echo Last Tested PinePhone Image: PENDING
 echo ----------------------------------------------------------------------------------------------
@@ -65,8 +65,8 @@ if [ "$formfactor" -lt "4" ]; then
 fi
 
 echo -e '\n'&&fdisk -l&&echo -e '\nHow much space should be allocated for SWAP?'
-echo -e 'Enter in terms of GB, e.g. "2" or "6" (a value of "0" will disable SWAP)'
-read -r -p "SWAP (default 4): " swap
+echo -e 'Enter in terms of GB, e.g. "2" or "4" (a value of "0" will disable SWAP)'
+read -r -p "SWAP (recommended: 4): " swap
 
 echo -e '\n'&&fdisk -l&&echo -e '\nDo you want to do a clean install on the OS disk (deletes all pre-existing partitions on OS disk)?'
 read -n 1 -r -p "(y/N) " wipe
