@@ -15,7 +15,7 @@ read -n 1 -s -r -p 'Press any key to continue'
 
 # Configuration Questions
 echo -e '\n\nWhat type of device is this installation intended for?\nPlease input the number only.\n'
-echo -e '1. Laptop \(plasma\)\n2. Desktop \(plasma\)\n3. Server \(headless\)\n'
+echo -e '1. Laptop (plasma)\n2. Desktop (plasma)\n3. Server (headless)\n'
 echo Special Devices:
 echo -e '\n4. ASUS ROG Zephyrus G14 2020/2021, G15 2021 \(plasma\)\n5. Pine64 PinePhone (non-pro) (phosh) - CURRENTLY NOT FUNCTIONAL, WIP\n'
 read -n 1 -r -p "Formfactor: " formfactor
