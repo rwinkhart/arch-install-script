@@ -47,7 +47,7 @@ else
     # GRUB
     pacman -S grub efibootmgr os-prober mtools dosfstools --noconfirm
     if [ "$boot" == 1 ]; then
-        grub-install --target=x86_64-efi --bootloader-id=GRUB --recheck
+        grub-install --target=x86_64-efi --bootloader-id=GRUB-rwinkhart --recheck
     fi
     if [ "$boot" == 2 ]; then
         grub-install --target=i386-pc "$disk"
