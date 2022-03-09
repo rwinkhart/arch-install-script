@@ -126,7 +126,7 @@ if [ "$boot" == 1 ]; then
 
 
         w
-        " | fdisk "$disk0"
+        " | fdisk -w always -W always "$disk0"
     else
         partitions=$(lsblk "$disk0" -o NAME | grep -o '.$' | tail -1)
         echo "n
@@ -141,7 +141,7 @@ if [ "$boot" == 1 ]; then
 
 
         w
-        " | fdisk "$disk0"
+        " | fdisk -W always "$disk0"
     fi
 
     # Disk Formatting
@@ -164,7 +164,7 @@ else
 
 
         w
-        " | fdisk "$disk0"
+        " | fdisk -w always -W always "$disk0"
     else
         partitions=$(lsblk "$disk0" -o NAME | grep -o '.$' | tail -1)
         echo "n
@@ -173,7 +173,7 @@ else
 
 
         w
-        " | fdisk "$disk0"
+        " | fdisk -W always "$disk0"
     fi
 
     # Disk Formatting
