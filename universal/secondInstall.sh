@@ -259,6 +259,12 @@ if [ "$formfactor" == 4 ]; then
     ACTION=="unbind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030000", TEST=="power/control", ATTR{power/control}="on"
     ACTION=="unbind", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x030200", TEST=="power/control", ATTR{power/control}="on"
     ' > /etc/udev/rules.d/90-asusd-nvidia-pm.rules
+    echo 'evdev:input:b0003v0B05p1866*
+      KEYBOARD_KEY_c00b6=home # Fn+F2
+      KEYBOARD_KEY_c00b5=end   # Fn+F4
+      KEYBOARD_KEY_ff31007c=f20 # x11 mic-mute' > /etc/udev/hwdb.d/90-zephyrus-kbd.hwdb
+    systemd-hwdb update
+    udevadm trigger
     # xbindkeys config
     echo '#ScreenBrightUp
     "xbacklight -inc 10"
