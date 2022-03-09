@@ -186,10 +186,10 @@ fi
 
 # Create and mount SWAP file
 if [ "$swap" != 0 ]; then
-    dd if=/dev/zero of=/mnt/swapfile bs=1M count="$swap"'G' status=progress
+    dd if=/dev/zero of=/mnt/swapfile bs=1G count="$swap" status=progress
     chmod 600 /mnt/swapfile
-    mkswap /swapfile
-    swapon /swapfile
+    mkswap /mnt/swapfile
+    swapon /mnt/swapfile
 fi
 
 # Generating fstab
