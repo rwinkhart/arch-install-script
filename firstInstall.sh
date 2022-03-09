@@ -22,6 +22,7 @@ read -n 1 -r -p "Formfactor: " formfactor
 
 echo -e '\n\nWhat would you like your username to be?\n'
 read -r -p "Username: " username
+username=$(echo "$username" | tr '[:upper:]' '[:lower:]')
 
 echo -e '\nWhat would you like your user password to be?\n'
 read -r -p "User Password: " userpassword
