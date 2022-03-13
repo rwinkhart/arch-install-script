@@ -342,7 +342,6 @@ cp /secondInstall.sh /home/"$username"/.cuaninstaller/installerbackup/secondInst
 curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/firstInstall.sh -o /home/"$username"/.cuaninstaller/installerbackup/firstInstall.sh
 
 # Finishing Up + Cleaning
-hostnamectl hostname archlinux
 rm -rf /secondInstall.sh /tempfiles
 echo -e "\n---------------------------------------------------------"
 echo Installation completed!

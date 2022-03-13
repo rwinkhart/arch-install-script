@@ -29,6 +29,10 @@ read -r -p "User Password: " userpassword
 echo -e '\nWhat would you like your root password to be?\n'
 read -r -p "Root Password: " rootpassword
 
+echo -e '\nWhat would you like your hostname to be?\nThis identifies your device on your local network.\nBe sure NOT to include spaces!\n'
+read -r -p "Hostname: " hostname
+hostname=$(echo "$hostname" | tr '[:upper:]' '[:lower:]')
+
 echo -e '\nAmerica:'&&ls /usr/share/zoneinfo/America
 echo -e '\nWhat timezone are you in?'
 echo -e 'e.g. "New_York" or "Aruba"\n'
@@ -191,6 +195,9 @@ if [ "$swap" != 0 ]; then
     mkswap /mnt/swapfile
     swapon /mnt/swapfile
 fi
+
+# Setting hostname
+echo "$hostname" > /mnt/etc/hostname
 
 # Generating fstab
 genfstab -U /mnt >> /mnt/etc/fstab
