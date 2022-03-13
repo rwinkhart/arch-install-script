@@ -53,7 +53,7 @@ fi
 if [ "$gpu" == "2" ]; then
     echo -e '\n\nPlease select a VA-API driver (for hardware video acceleration).\nPlease input the number only.\n'
     echo -e '1. libva-intel-driver (Intel iGPUs up to Coffee Lake)\n2. intel-media-driver (Intel iGPUs/dGPUs newer than Coffe Lake)\n'
-    read -n 1 -r -p "Primary Graphics: " intel_vaapi_driver
+    read -n 1 -r -p "VA-API Driver: " intel_vaapi_driver
 fi
 
 if [ "$formfactor" == "1" ]; then
