@@ -1,8 +1,7 @@
 #!/bin/bash
 echo ----------------------------------------------------------------------------------------------
 echo Randall\'s Universal-ish Interactive Arch+Plasma Installer
-echo Last Updated March 12, 2022
-echo Last Tested x86_64 ISO: March 01, 2022
+echo Last Updated May 07, 2022
 echo Last Tested PinePhone Image: PENDING
 echo ----------------------------------------------------------------------------------------------
 echo This script assumes basic knowledge of the Arch Linux installation process.
