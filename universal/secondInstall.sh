@@ -107,6 +107,7 @@ if [ "$formfactor" -lt 4 ]; then
     curl https://raw.githubusercontent.com/rwinkhart/universal-arch-install-script/main/config-files/x86_64/pacman.conf -o /etc/pacman.conf
     pacman -Sy
 fi
+curl https://raw.githubusercontent.com/rwinkhart/arch-install-script/main/config-files/universal/paccache-clean-hook -o /etc/pacman.d/hooks/paccache-clean.hook
 
 # Special Device Package Installation and Configuration
 # Zephyrus G14
