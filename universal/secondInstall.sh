@@ -305,7 +305,7 @@ fi
 
 # Installing Desktop Environment and Addons + Utilities
 if [ "$formfactor" -lt 3 ] || [ "$formfactor" == 4 ]; then
-    pacman -S pipewire pipewire-pulsepipewire-jack pipewire-alsa plasma-desktop sddm sddm-kcm kscreen kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager pcmanfm-qt yakuake ark kate bluedevil bluez --needed --noconfirm
+    pacman -S pipewire pipewire-pulse pipewire-jack pipewire-alsa plasma-desktop sddm sddm-kcm kscreen kdeplasma-addons spectacle gwenview plasma-nm plasma-pa breeze-gtk kde-gtk-config kio-extras khotkeys kwalletmanager pcmanfm-qt yakuake ark kate bluedevil bluez --needed --noconfirm
     systemctl enable sddm
 fi
 if [ "$formfactor" == 4 ]; then
