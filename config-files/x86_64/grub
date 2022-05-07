@@ -1,9 +1,9 @@
-# GRUB boot loader configuration - Universal-ish Arch Installer 01/06/2022
+# GRUB boot loader configuration - Universal-ish Arch Installer 05/07/2022
 
 GRUB_DEFAULT="Advanced options for Arch Linux>Arch Linux, with Linux linux"
 GRUB_TIMEOUT=0
 GRUB_DISTRIBUTOR="Arch"
-GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet nowatchdog"
+GRUB_CMDLINE_LINUX_DEFAULT="loglevel=3 quiet nowatchdog mem_sleep_default=deep"
 GRUB_CMDLINE_LINUX=""
 
 # Preload both GPT and MBR modules so that they are not missed
