@@ -328,13 +328,10 @@ if [ "$formfactor" == 3 ]; then
 fi
 mkdir -p /home/"$username"/.gnupg
 echo 'pinentry-program /usr/bin/pinentry-tty' > /home/"$username"/.gnupg/gpg-agent.conf  # forces gpg prompts to use terminal input
-pacman -S neofetch htop cpupower openvpn openresolv --needed --noconfirm
-curl https://raw.githubusercontent.com/alfredopalhares/openvpn-update-resolv-conf/master/update-resolv-conf.sh -o /etc/openvpn/update-resolv-conf
-chmod +x /etc/openvpn/update-resolv-conf
+pacman -S neofetch htop cpupower --needed --noconfirm
 
 # Saving Copy of Current Install Script for Future Reference
 mkdir /home/"$username"/.cuaninstaller/installerbackup
-cp /etc/openvpn/update-resolv-conf /home/"$username"/.cuaninstaller/installerbackup/update-resolv-conf
 cp /etc/pacman.conf /home/"$username"/.cuaninstaller/installerbackup/pacman.conf
 cp /etc/paru.conf /home/"$username"/.cuaninstaller/installerbackup/paru.conf
 cp /etc/default/grub /home/"$username"/.cuaninstaller/installerbackup/grub
