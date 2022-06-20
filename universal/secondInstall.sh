@@ -326,6 +326,7 @@ if [ "$formfactor" == 3 ]; then
     chmod 600 /home/"$username"/.ssh/authorized_keys
     chown -R "$username" /home/"$username"/.ssh
 fi
+echo -e '*        hard    memlock        2097152\n*        soft    memlock        2097152\n# End of file' > /etc/security/limits.conf  # increases memlock to 2 GiB (useful for some apps, such as RPCS3)
 mkdir -p /home/"$username"/.gnupg
 echo 'pinentry-program /usr/bin/pinentry-tty' > /home/"$username"/.gnupg/gpg-agent.conf  # forces gpg prompts to use terminal input
 pacman -S neofetch htop cpupower --needed --noconfirm
